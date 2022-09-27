@@ -1,11 +1,5 @@
 use crate::{cached_iterator::CachedIterator, primes::Primes};
 
-/// Returns an iterator that can compute the prime factors of n.
-/// The factors may be returned more than once, and in any order.
-pub fn prime_factors(n: u128) -> impl Iterator<Item = <Primes as Iterator>::Item> {
-    PrimeFactorIterator::new(n)
-}
-
 /// An iterator the returs the prime factors of n. It may return
 /// a single factor more than once.
 pub struct PrimeFactorIterator {
@@ -44,11 +38,11 @@ impl Iterator for PrimeFactorIterator {
 
 #[cfg(test)]
 mod tests {
-    use super::prime_factors;
+    use crate::prime_factors::PrimeFactorIterator;
 
     #[test]
     fn test_prime_factors() {
-        let prime_factors = prime_factors(13195).collect::<Vec<_>>();
+        let prime_factors = PrimeFactorIterator::new(13195).collect::<Vec<_>>();
         assert_eq!(prime_factors, vec![5, 7, 13, 29]);
     }
 }
