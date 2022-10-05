@@ -38,15 +38,25 @@ impl Primes {
     /// previously found primes as true
     fn paginate(&mut self) -> () {
         for i in 0..self.bitarray.len() {
-            if !self.bitarray.get(i) {
-                self.previous_primes.push(i);
+            let prime = i + self.offset;
+            if prime > 1 && !self.bitarray.get(i) {
+                self.previous_primes.push(prime);
             }
         }
         self.bitarray = BitArray::new(min(self.offset + MAX_ITERATION_SIZE, self.limit));
         self.offset += MAX_ITERATION_SIZE;
         for prime in self.previous_primes.clone() {
-            self.mark_multiples(prime);
+            let mut idx = prime;
+            while idx < self.offset {
+                idx += prime;
+            }
+            idx = idx - self.offset;
+            while idx < self.bitarray.len() {
+                self.bitarray.set(idx, true);
+                idx += prime;
+            }
         }
+        self.index = 0;
     }
 }
 
@@ -54,20 +64,20 @@ impl Iterator for Primes {
     type Item = u128;
 
     fn next(&mut self) -> Option<Self::Item> {
-        let index = self.index;
-        if index >= self.limit {
-            return None;
-        } else if index < self.bitarray.len() {
-            self.index += 1;
-            if !self.bitarray.get(index) {
-                self.mark_multiples(index);
-                return Some(index);
-            } else {
-                return self.next();
+        loop {
+            while self.index < self.bitarray.len() {
+                let num = self.index + self.offset;
+                if num >= self.limit {
+                    return None;
+                }
+                let index = self.index;
+                self.index += 1;
+                if !self.bitarray.get(index) {
+                    self.mark_multiples(num);
+                    return Some(num);
+                }
             }
-        } else {
             self.paginate();
-            return self.next();
         }
     }
 }
@@ -81,5 +91,15 @@ mod tests {
         let p = Primes::new(10);
         let primes = p.collect::<Vec<_>>();
         assert_eq!(primes, vec![2, 3, 5, 7]);
+    }
+
+    #[test]
+    fn test_generates_2000_primes() {
+        assert_eq!(Primes::new(u128::MAX).take(2000).last().unwrap(), 17389);
+    }
+
+    #[test]
+    fn test_generates_10001_prime() {
+        assert_eq!(Primes::new(u128::MAX).take(10001).last().unwrap(), 104743);
     }
 }
