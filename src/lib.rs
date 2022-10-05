@@ -3,6 +3,7 @@ pub mod cached_iterator;
 pub mod fibonacci;
 pub mod prime_factors;
 pub mod primes;
+pub mod pythagorus;
 
 pub fn is_palindrome(s: &str) -> bool {
     let chars = s.chars().collect::<Vec<_>>();
