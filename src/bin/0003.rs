@@ -1,6 +1,6 @@
-use euler_rs::prime_factors::PrimeFactorIterator;
+use euler_rs::factors::PrimeFactors;
 
 fn main() {
-    let prime_factors = PrimeFactorIterator::new(600851475143).max().unwrap();
+    let prime_factors = PrimeFactors::new(600851475143).max().unwrap();
     println!("{}", prime_factors);
 }

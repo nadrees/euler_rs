@@ -1,13 +1,13 @@
-use crate::{cached_iterator::CachedIterator, primes::Primes};
+use crate::{cached_iterator::CachedIterator, generators::Primes};
 
 /// An iterator the returs the prime factors of n. It may return
 /// a single factor more than once.
-pub struct PrimeFactorIterator {
+pub struct PrimeFactors {
     n: u128,
     iter: CachedIterator<Primes, u128>,
 }
 
-impl PrimeFactorIterator {
+impl PrimeFactors {
     /// Creates a new iterator for n.
     pub fn new(n: u128) -> Self {
         Self {
@@ -17,7 +17,7 @@ impl PrimeFactorIterator {
     }
 }
 
-impl Iterator for PrimeFactorIterator {
+impl Iterator for PrimeFactors {
     type Item = <Primes as Iterator>::Item;
 
     fn next(&mut self) -> Option<Self::Item> {
@@ -38,11 +38,11 @@ impl Iterator for PrimeFactorIterator {
 
 #[cfg(test)]
 mod tests {
-    use crate::prime_factors::PrimeFactorIterator;
+    use super::PrimeFactors;
 
     #[test]
     fn test_prime_factors() {
-        let prime_factors = PrimeFactorIterator::new(13195).collect::<Vec<_>>();
+        let prime_factors = PrimeFactors::new(13195).collect::<Vec<_>>();
         assert_eq!(prime_factors, vec![5, 7, 13, 29]);
     }
 }

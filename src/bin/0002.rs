@@ -1,4 +1,4 @@
-use euler_rs::fibonacci::Fibonacci;
+use euler_rs::generators::Fibonacci;
 
 const MAX: u64 = 4000000;
 

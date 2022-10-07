@@ -1,4 +1,4 @@
-use euler_rs::primes::Primes;
+use euler_rs::generators::Primes;
 
 fn main() {
     let primes: u128 = Primes::new(2000000).sum();

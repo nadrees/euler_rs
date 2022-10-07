@@ -1,4 +1,4 @@
-use euler_rs::pythagorus::PythagoreanTriplets;
+use euler_rs::generators::PythagoreanTriplets;
 
 fn main() {
     let triplet = PythagoreanTriplets::new()
