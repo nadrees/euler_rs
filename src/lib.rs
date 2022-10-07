@@ -1,3 +1,9 @@
+use std::{
+    fs::File,
+    io::{self, BufRead},
+    path::Path,
+};
+
 pub mod bitarray;
 pub mod cached_iterator;
 pub mod fibonacci;
@@ -13,6 +19,15 @@ pub fn is_palindrome(s: &str) -> bool {
         }
     }
     return true;
+}
+
+/// Reads the lines of a file and returns them as an iterator
+pub fn read_lines<P>(filename: P) -> io::Result<io::Lines<io::BufReader<File>>>
+where
+    P: AsRef<Path>,
+{
+    let file = File::open(filename)?;
+    Ok(io::BufReader::new(file).lines())
 }
 
 #[cfg(test)]
