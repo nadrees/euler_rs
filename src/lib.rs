@@ -4,11 +4,13 @@ use std::{
     path::Path,
 };
 
+pub mod bigint;
 pub mod bitarray;
 pub mod cached_iterator;
 pub mod factors;
 pub mod generators;
 pub mod grid;
+pub mod math;
 pub mod triangle;
 
 pub fn is_palindrome(s: &str) -> bool {
