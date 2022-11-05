@@ -1,6 +1,8 @@
+mod proper_divisors;
+
 use num_bigint::BigUint;
 
-use crate::factors::Factors;
+pub use proper_divisors::*;
 
 /// Computes n!
 pub fn factorial(n: u128) -> BigUint {
@@ -9,12 +11,6 @@ pub fn factorial(n: u128) -> BigUint {
         num *= i;
     }
     return num;
-}
-
-/// Returns an iterator over the proper divisors of n.
-/// Proper divisors are all factors a of n where a < n.
-pub fn proper_divisors(n: &u128) -> impl Iterator<Item = u128> + '_ {
-    Factors::new(n).filter(move |f| *f < *n)
 }
 
 /// Let d(n) be defined as the sum of proper divisors of n (numbers less than n which divide evenly into n).
@@ -37,14 +33,7 @@ pub fn get_amicable_partner(a: &u128) -> Option<u128> {
 
 #[cfg(test)]
 mod tests {
-    use super::{get_amicable_partner, proper_divisors};
-
-    #[test]
-    fn test_proper_divisors() {
-        let mut divisors = proper_divisors(&220).collect::<Vec<_>>();
-        divisors.sort();
-        assert_eq!(divisors, vec![1, 2, 4, 5, 10, 11, 20, 22, 44, 55, 110])
-    }
+    use super::get_amicable_partner;
 
     #[test]
     fn test_get_amicable_partner_1() {
