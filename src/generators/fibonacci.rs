@@ -1,31 +1,38 @@
+use std::mem::{replace, swap};
+
+use num_bigint::BigUint;
+use num_traits::One;
+
 /// a fibonacci sequence generator
 pub struct Fibonacci {
-    a: u64,
-    b: u64,
+    a: BigUint,
+    b: BigUint,
 }
 
 impl Fibonacci {
-    /// Starts a new sequence
+    /// Starts a new sequence, returning 1, 2 as the first two elements
     pub fn new() -> Fibonacci {
-        Self { a: 0, b: 0 }
+        Self {
+            a: One::one(),
+            b: BigUint::new(vec![2]),
+        }
+    }
+
+    /// Starts a new sequence, returning 1, 1 as the first two elements
+    pub fn new_with_1_and_1() -> Fibonacci {
+        Self {
+            a: One::one(),
+            b: One::one(),
+        }
     }
 }
 
 impl Iterator for Fibonacci {
-    type Item = u64;
+    type Item = BigUint;
 
     fn next(&mut self) -> Option<Self::Item> {
-        if self.a == 0 {
-            self.a = 1;
-            return Some(self.a);
-        } else if self.b == 0 {
-            self.b = 2;
-            return Some(self.b);
-        } else {
-            let next = self.a + self.b;
-            self.a = self.b;
-            self.b = next;
-            return Some(next);
-        }
+        let next = &self.a + &self.b;
+        swap(&mut self.a, &mut self.b);
+        Some(replace(&mut self.b, next))
     }
 }

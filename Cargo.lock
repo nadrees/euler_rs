@@ -178,6 +178,7 @@ dependencies = [
  "clap",
  "itertools",
  "num-bigint",
+ "num-traits",
  "phf",
 ]
 
