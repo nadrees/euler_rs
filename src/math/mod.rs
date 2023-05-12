@@ -1,8 +1,10 @@
+mod fraction;
 mod proper_divisors;
 
+pub use fraction::*;
 use num_bigint::BigUint;
-
 pub use proper_divisors::*;
+use std::hash::Hash;
 
 /// Computes n!
 pub fn factorial(n: u128) -> BigUint {
@@ -31,9 +33,36 @@ pub fn get_amicable_partner(a: &u128) -> Option<u128> {
     }
 }
 
+/// Computes the length of the cylce in the decimal representation of
+/// the given fraction.
+pub fn cycle_length<T>(f: Fraction<T>) -> Option<usize>
+where
+    T: FractionType + Eq + Hash,
+{
+    let mut digits_seen: Vec<T> = vec![];
+    let mut decimals_iter = f.decimal_portion();
+    while let Some(digit) = decimals_iter.next() {
+        if !digits_seen.contains(&digit) {
+            digits_seen.push(digit);
+        } else {
+            // walk backwards until we see the same decimal again
+            let mut steps = 1;
+            while let Some(previous_digit) = digits_seen.pop() {
+                if previous_digit == digit {
+                    return Some(steps);
+                } else {
+                    steps += 1;
+                }
+            }
+            return None;
+        }
+    }
+    return None;
+}
+
 #[cfg(test)]
 mod tests {
-    use super::get_amicable_partner;
+    use super::*;
 
     #[test]
     fn test_get_amicable_partner_1() {
@@ -43,5 +72,13 @@ mod tests {
     #[test]
     fn test_get_amicable_partner_220() {
         assert_eq!(Some(284), get_amicable_partner(&220));
+    }
+
+    #[test]
+    fn test_cycle_length() {
+        assert_eq!(None, cycle_length(Fraction::new(1u8, 2)));
+        assert_eq!(Some(1), cycle_length(Fraction::new(1u8, 3)));
+        assert_eq!(Some(1), cycle_length(Fraction::new(1u8, 6)));
+        assert_eq!(Some(6), cycle_length(Fraction::new(1u8, 7)));
     }
 }
