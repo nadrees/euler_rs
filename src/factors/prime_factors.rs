@@ -12,7 +12,7 @@ impl PrimeFactors {
     pub fn new(n: u128) -> Self {
         Self {
             n,
-            iter: CachedIterator::new(Primes::new(n / 2)),
+            iter: CachedIterator::new(Primes::new_up_to(n / 2)),
         }
     }
 }

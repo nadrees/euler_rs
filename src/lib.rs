@@ -4,6 +4,9 @@ use std::{
     path::Path,
 };
 
+use itertools::Itertools;
+use num_traits::Unsigned;
+
 pub mod bigint;
 pub mod bitarray;
 pub mod cached_iterator;
@@ -12,6 +15,18 @@ pub mod generators;
 pub mod grid;
 pub mod math;
 pub mod triangle;
+
+pub fn is_prime<N, I>(num: N, primes_iter: I) -> bool
+where
+    N: Unsigned,
+    I: Iterator<Item = u128>,
+    u128: From<N>,
+{
+    let converted_n: u128 = N::into(num);
+    primes_iter
+        .take_while(|p| *p <= converted_n)
+        .contains(&converted_n)
+}
 
 pub fn is_palindrome(s: &str) -> bool {
     let chars = s.chars().collect::<Vec<_>>();

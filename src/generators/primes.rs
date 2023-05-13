@@ -14,7 +14,11 @@ pub struct Primes {
 
 impl Primes {
     /// creates a new Prime number generator that can generate primes to limit - 1
-    pub fn new(limit: u128) -> Self {
+    pub fn new() -> Self {
+        Self::new_up_to(u128::MAX)
+    }
+
+    pub fn new_up_to(limit: u128) -> Self {
         let bitarray = BitArray::new(min(limit, MAX_ITERATION_SIZE));
         Self {
             bitarray,
@@ -88,18 +92,24 @@ mod tests {
 
     #[test]
     fn test_primes() {
-        let p = Primes::new(10);
+        let p = Primes::new_up_to(10);
         let primes = p.collect::<Vec<_>>();
         assert_eq!(primes, vec![2, 3, 5, 7]);
     }
 
     #[test]
     fn test_generates_2000_primes() {
-        assert_eq!(Primes::new(u128::MAX).take(2000).last().unwrap(), 17389);
+        assert_eq!(
+            Primes::new_up_to(u128::MAX).take(2000).last().unwrap(),
+            17389
+        );
     }
 
     #[test]
     fn test_generates_10001_prime() {
-        assert_eq!(Primes::new(u128::MAX).take(10001).last().unwrap(), 104743);
+        assert_eq!(
+            Primes::new_up_to(u128::MAX).take(10001).last().unwrap(),
+            104743
+        );
     }
 }
