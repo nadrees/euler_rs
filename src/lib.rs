@@ -38,6 +38,27 @@ pub fn is_palindrome(s: &str) -> bool {
     return true;
 }
 
+pub trait Two {
+    fn two() -> Self;
+}
+
+pub trait Three {
+    fn three() -> Self;
+}
+
+macro_rules! num_trait_impl {
+    ($name:ident for $($t:ty)*, $fn_name:ident = $two:expr) => ($(
+        impl $name for $t {
+            #[inline]
+            fn $fn_name() -> Self {
+                $two
+            }
+        }
+    )*)
+}
+num_trait_impl!(Two for usize u8 u16 u32 u64 u128 isize i8 i16 i32 i64 i128, two = 2);
+num_trait_impl!(Three for usize u8 u16 u32 u64 u128 isize i8 i16 i32 i64 i128, three = 3);
+
 /// Reads the lines of a file and returns them as an iterator
 pub fn read_lines<P>(filename: P) -> io::Result<io::Lines<io::BufReader<File>>>
 where
