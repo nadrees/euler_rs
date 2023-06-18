@@ -4,7 +4,7 @@ mod proper_divisors;
 pub use fraction::*;
 use num_bigint::BigUint;
 pub use proper_divisors::*;
-use std::hash::Hash;
+use std::{collections::HashSet, hash::Hash};
 
 /// Computes n!
 pub fn factorial(n: u128) -> BigUint {
@@ -58,6 +58,29 @@ where
         }
     }
     return None;
+}
+
+pub fn is_pandigital(n: &str) -> bool {
+    // we know that the largest 1 - 9 pandigital number is
+    // 987,654,321. This means that any number with more than 9
+    // digits cannot be pandigital.
+
+    // The smallest 1 - 9 pandigital number is 123,456,789.
+    // This means that any number with less than 9 digits cannot
+    // be pandigital.
+    let mut set = HashSet::new();
+    let mut count = 0;
+    for char in n.chars() {
+        count += 1;
+        if count > 9 {
+            return false;
+        } else if char.is_digit(10) && !set.contains(&char) {
+            set.insert(char);
+        } else {
+            return false;
+        }
+    }
+    return count == 9;
 }
 
 #[cfg(test)]
