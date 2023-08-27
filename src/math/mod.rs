@@ -80,7 +80,7 @@ pub fn is_pandigital(n: &str) -> bool {
             return false;
         }
     }
-    return count == 9;
+    return count == 9 && !set.contains(&'0');
 }
 
 #[cfg(test)]
