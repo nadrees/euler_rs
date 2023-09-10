@@ -10,7 +10,7 @@ fn main() {
         if let Some((count, str)) = maybe_panditigal_product(num) {
             if count == 1 {
                 break;
-            } else if is_pandigital(&str) {
+            } else if is_pandigital(&str, 9) {
                 let pandigital_num: u128 = str.parse().unwrap();
                 if pandigital_num > max_pandigital_number {
                     max_pandigital_number = pandigital_num;

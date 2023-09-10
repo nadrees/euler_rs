@@ -45,7 +45,7 @@ pub fn main() {
         for multiplier in start..(10000 / multiplicand) {
             let product = multiplicand * multiplier;
             let num = format!("{}{}{}", multiplicand, multiplier, product);
-            if is_pandigital(&num) {
+            if is_pandigital(&num, 9) {
                 set.insert(product);
             }
         }

@@ -60,7 +60,9 @@ where
     return None;
 }
 
-pub fn is_pandigital(n: &str) -> bool {
+/// Returns true if a number is "length" pandigital, meaning
+/// the number has each digit from 1..length exactly one time
+pub fn is_pandigital(n: &str, length: usize) -> bool {
     // we know that the largest 1 - 9 pandigital number is
     // 987,654,321. This means that any number with more than 9
     // digits cannot be pandigital.
@@ -80,7 +82,7 @@ pub fn is_pandigital(n: &str) -> bool {
             return false;
         }
     }
-    return count == 9 && !set.contains(&'0');
+    return count == length && !set.contains(&'0');
 }
 
 #[cfg(test)]
