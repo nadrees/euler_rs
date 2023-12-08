@@ -7,6 +7,7 @@ use std::{
 use itertools::Itertools;
 use num_traits::Unsigned;
 
+pub mod alpha;
 pub mod bigint;
 pub mod bitarray;
 pub mod cached_iterator;
