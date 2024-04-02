@@ -14,6 +14,7 @@ pub mod cached_iterator;
 pub mod factors;
 pub mod generators;
 pub mod grid;
+pub mod lookup_iterator;
 pub mod math;
 pub mod triangle;
 
