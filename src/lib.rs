@@ -18,6 +18,7 @@ pub mod generators;
 pub mod grid;
 pub mod lookup_iterator;
 pub mod math;
+pub mod permutation;
 pub mod triangle;
 
 pub fn is_prime<N, I>(num: N, primes_iter: &mut I) -> bool
