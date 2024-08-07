@@ -1,6 +1,7 @@
 mod champernownes_constant;
 mod collatz;
 mod consecutive_prime_sum;
+mod digit_replacement;
 mod fibonacci;
 mod hexagonal_numbers;
 mod pandigital_numbers;
@@ -14,6 +15,7 @@ mod triangle_numbers;
 pub use champernownes_constant::ChampernownesConstant;
 pub use collatz::Collatz;
 pub use consecutive_prime_sum::*;
+pub use digit_replacement::*;
 pub use fibonacci::Fibonacci;
 pub use hexagonal_numbers::HexagonalNumberGenerator;
 pub use pandigital_numbers::pandigital_numbers_of_length;

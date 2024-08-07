@@ -20,7 +20,7 @@ pub mod lookup_iterator;
 pub mod math;
 pub mod triangle;
 
-pub fn is_prime<N, I>(num: N, primes_iter: I) -> bool
+pub fn is_prime<N, I>(num: N, primes_iter: &mut I) -> bool
 where
     N: Unsigned,
     I: Iterator<Item = u128>,
