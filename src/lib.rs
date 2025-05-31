@@ -13,6 +13,7 @@ pub mod alpha;
 pub mod bigint;
 pub mod bitarray;
 pub mod cached_iterator;
+pub mod cards;
 pub mod factors;
 pub mod generators;
 pub mod grid;
