@@ -137,4 +137,12 @@ mod tests {
     fn test_is_straight(cards: [&Card; 5], expected: bool) {
         assert_eq!(is_straight(cards), expected);
     }
+
+    #[parameterized(
+        flush = {[&"4H".parse().unwrap(), &"7H".parse().unwrap(), &"9H".parse().unwrap(), &"JH".parse().unwrap(), &"AH".parse().unwrap()], true},
+        not_flush = {[&"4C".parse().unwrap(), &"7H".parse().unwrap(), &"9H".parse().unwrap(), &"JH".parse().unwrap(), &"AH".parse().unwrap()], false}
+    )]
+    fn test_is_flush(cards: [&Card; 5], expected: bool) {
+        assert_eq!(is_flush(cards), expected);
+    }
 }
